@@ -6,7 +6,8 @@ public:
         string str = "";
         int a = 0;
         for(int i = 0;i < s.length();i++){
-            if(s[i]==' '){
+            if(s[i]==' ' || i==s.length()-1){
+                if(s[i]!=' ') str += s[i];
                 if(mp[str]>='a' && mp[str]!=pattern[a]){
                     return false;
                 }
@@ -22,15 +23,15 @@ public:
                 str += s[i];
             }
         }
-        cout<<mp[str]<<" ";
-        if(mp[str]>='a' && mp[str]!=pattern[a]){
-            return false;
-        }
-        else if(mp[str]<'a' && taken[pattern[a]]){
-            return false;
-        }
-        mp[str] = pattern[a];
-        if(a<pattern.length()-1){
+        cout<<a<<" ";
+        // if(mp[str]>='a' && mp[str]!=pattern[a]){
+        //     return false;
+        // }
+        // else if(mp[str]<'a' && taken[pattern[a]]){
+        //     return false;
+        // }
+        // mp[str] = pattern[a];
+        if(a<pattern.length()){
             return false;
         }
         return true;
