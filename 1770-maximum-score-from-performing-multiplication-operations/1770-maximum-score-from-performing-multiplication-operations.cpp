@@ -15,7 +15,7 @@ public:
     
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         long ans = 0;
-        vector<vector<int>> dp(multipliers.size(),vector<int>(multipliers.size(),-1));
+        vector<vector<int>> dp(1000,vector<int>(1000,-1));
         int p = nums.size()-1;
         return findMaxAns(nums,multipliers,ans,0,p,0,dp);
     }
