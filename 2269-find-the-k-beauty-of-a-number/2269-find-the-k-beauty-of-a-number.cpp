@@ -1,16 +1,12 @@
 class Solution {
 public:
     int divisorSubstrings(int num, int k) {
-        int m = num;
-        long int x = pow(10,k);
+        string s1 = to_string(num);
         int count = 0;
-        while(m>x){
-            int rem = m%x;
-            if(rem && num%rem==0) count++;
-            m /= 10;
-        }
-        if(num%m == 0){
-            count++;
+        for(int i=0;i<s1.length()-k+1;i++){
+            string s2 = s1.substr(i,k);
+            int x = stoi(s2);
+            if(x && num%x==0) count++;
         }
         return count;
     }
