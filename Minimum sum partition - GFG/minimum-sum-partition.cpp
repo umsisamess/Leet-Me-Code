@@ -19,7 +19,7 @@ class Solution{
             }
         }
         ans = min(abs(leftsum-(sum-leftsum)),ans);
-        return dp[leftsum] = ans;
+        return dp[leftsum]= ans;
     }
   
 	int minDifference(int arr[], int n)  {
