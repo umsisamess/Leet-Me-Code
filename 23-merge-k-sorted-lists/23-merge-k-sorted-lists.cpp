@@ -10,26 +10,30 @@
  */
 class Solution {
 public:
-    ListNode* merge(ListNode* head, ListNode* list1){
-        if(head==NULL) return list1;
-        if(list1==NULL) return head;
-        if(head->val<=list1->val){
-            head->next = merge(head->next,list1);
-            return head;
-        }else{
-            list1->next = merge(head,list1->next);
-            return list1;
+    struct comp{
+        bool operator()(ListNode* l, ListNode* r){
+            return l->val > r->val;
         }
-    }
-    
+    };
+
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        int n = lists.size();
-        if(n==0) return NULL;
-        if(n==1) return lists[0];
-        ListNode* head = lists[0];
-        for(int i=1;i<n;i++){
-            head = merge(head,lists[i]);
+        priority_queue<ListNode*, vector<ListNode*>,comp> pq;
+        for(auto l:lists){
+            if(l) pq.push(l);
         }
-        return head;
+        if(pq.empty()) return NULL;
+        ListNode* ans = pq.top();
+        pq.pop();
+        if(ans->next) pq.push(ans->next);
+        
+        ListNode* tail = ans;
+        while(!pq.empty()){
+            tail->next = pq.top();
+            pq.pop();
+            tail = tail->next;
+            if(tail->next) pq.push(tail->next);
+        }
+        
+        return ans;
     }
 };
