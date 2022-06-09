@@ -3,7 +3,7 @@ public:
     string minWindow(string s, string t) {
         int m = s.length();
         int n = t.length();
-        // if(s==t) return s;
+        if(s==t) return s;
         unordered_map<char,int> count1;
         unordered_map<char,int> count2;
         unordered_map<char,int> count3;
@@ -59,7 +59,6 @@ public:
             }
         }
         string result = "";
-        cout<<res[0]<<" "<<res[1]<<" ";
         for(int i=res[0];i<=res[1];i++){
             result += s[i];
         }
