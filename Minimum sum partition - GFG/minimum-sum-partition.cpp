@@ -6,32 +6,34 @@ using namespace std;
 class Solution{
 
   public:
-    int helper(int arr[], int n, vector<int>& dp, int sum, int leftsum, vector<bool>& visited){
-        if(leftsum == sum) return sum;
-        if(dp[leftsum]!=-1) return dp[leftsum];
-        
-        int ans = sum;
-        for(int i=0;i<n;i++){
-            if(!visited[i]){
-                visited[i] = true;
-                ans = min(ans, helper(arr,n,dp,sum,leftsum+arr[i],visited));
-                visited[i] = false;
-            }
-        }
-        ans = min(abs(leftsum-(sum-leftsum)),ans);
-        return dp[leftsum]= ans;
-    }
-  
-	int minDifference(int arr[], int n)  {
+	int minDifference(int arr[], int n)  { 
 	    int sum = 0;
 	    for(int i=0;i<n;i++){
 	        sum += arr[i];
 	    }
+	    sort(arr,arr+n);
 	    
-	    vector<int> dp(sum+1,-1);
-	    vector<bool> visited(n);
+	    vector<vector<int>> dp(sum+1,vector<int>(2));
+	    dp[sum] = {1,1};
 	    
-	    return helper(arr, n, dp, sum, 0, visited);
+	    int mini = sum;
+	    for(int j=n-1;j>=0;j--){
+    	    for(int i=0;i<=sum;i++){
+    	        if(dp[i][0]==0) continue;
+    	        
+    	        if(dp[i][1]==1){
+    	            int diff = abs(2*arr[j]-i);
+    	            int dir;
+    	            if(i>=2*arr[j]) dir = 1;
+    	            else dir = 2;
+    	            dp[diff][0] = 1;
+    	            dp[diff][1] = dp[diff][1]==1?1:dir;
+    	            mini = min(mini,diff);
+    	        }
+    	    }
+	    }
+	    
+	    return mini;
 	} 
 };
 
